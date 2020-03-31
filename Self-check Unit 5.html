@@ -4,30 +4,212 @@
 		<meta charset="utf-8">
 		<title> Self-check Unit 5  </title>
 		<link rel="stylesheet" type="text/css" href="mutual_style.css">
-		<link rel="stylesheet" type="text/css" href="problems_style.css">
-		<script>
-		
-			correct_answers = [ ["barbecue", "documentary", "scream", "hill", "wheel", "vacuum", "blog", "treat", "ride", "board"], ["on", "out", "into", "in", "out"], [], ["Was Simon eating", "were playing", "wasn't dusting", "was cooking", "was gardening", "Was everyone screaming"], ["was watching", "went", "was watching", "was filming", "was hanging out", "saw", "gave", "took", "were playing", "called", "was building", "was making"], ["through", "along", "off", "into"], ["1a", "2b", "3b", "4a"], ["1c", "2c", "3c", "4a"] ];
+		<!--<link rel="stylesheet" type="text/css" href="problems_style.css">-->
+		<style>
+			body {
+				background: linear-gradient(to bottom, #ADFF2F 0%, #ffffff 120%);
+				background-repeat: no-repeat;
+				font-family: Georgia, serif;
+				width: 800px;
+				margin: auto;
+				padding: 40px;
+			}
+
+			div.header{
+				background: white;
+				color: black;
+	
+				font-size: 18px;
+	
+				margin:auto;
+				padding:1em;
+				width: 970px;
+	
+				border-top: solid #0000CD 40px;
+				border-bottom: solid #0000CD 8px;
+			}
+
+
+			div.page {
+				margin: 0em -7em;
+				padding: 1em;
+				border-top: solid #0000CD 8px;
+				border-bottom: solid #0000CD 50px;
+				width: 1000px;
+				background: white;
+				position: relative;
+				border-left: dotted black 1px;
+				border-right: dotted black 1px;
+			}
 			
-		function main(){//тук се викат някои от функциите:
+			.task_num{
+				text-decoration: double underline;
+				padding-top: 5px;
+				font-size: 18px;
+				padding-bottom: 10px;
+			}
+			
+			.task_num i{
+				text-decoration: none;
+			}
+			
+			.task{
+				background:  linear-gradient(to top, #0000CD, #ffffff 100%); 
+				border: dotted black 1px;
+				margin-top: 10px;
+				margin-bottom: 10px;
+				padding-left: 15px;
+				padding-right: 15px;
+				position: relative;
+			}
+			
+			li {
+				padding: 2.5px;
+			}
+			
+			#task1A {
+				font-size: 18px;
+			}
+
+			#task1A li{
+				display: inline;
+			}
+
+			#task1A li:hover{
+				font-size: 120%;
+				font-weight: bold;
+			}
+
+			#empty_text{
+				font-style: italic;
+				background: 	#FFFFFF;
+				border-top: solid black 1px;
+				border-bottom: solid black 1px;
+				padding: 10px;
+				width: 98%;
+				margin-top: 10px;
+				font-size: 18px;
+			}
+			
+			#reading {
+				font-size: 18px;
+			}
+			
+			#task_buttons{
+				margin-top: 10px;
+				margin-bottom: 10px;
+				text-align: center;
+			}
+			
+			#table_footer {
+				margin-left: 15em;
+				margin-top: 1em;
+			}
+			
+			#table_footer td{
+				border-left: dotted black 1px;
+				border-right: dotted black 1px;
+				padding-left: 1em;
+				padding-right: 1em;
+			}
+
+			#table_footer #year{
+				border-left: none;
+				border-right: none;
+			}
+			
+			h3 {
+				text-align: right;
+				font-size: 14px;
+			}
+			
+			button {
+				background-color: #ADFF2F; 
+				border: solid #000000 1px;
+				padding: 5px;
+				margin-right: 15px;
+				text-align: center;
+				text-decoration: none;
+				display: inline-block;
+				font-size: 18px;
+				border-radius: 10px;
+				box-shadow: 2.5px 5px 10px #000000;
+			}
+			
+			button:hover {
+				background-color: #74aa22;
+			}
+			
+			div.mark {
+				padding-top: 25px;
+				padding-bottom: 25px;
+				border-top: solid #0000CD 8px; 
+				border-bottom: solid #0000CD 8px; 
+			}
+			
+			#total {
+				text-align: left;
+				padding-top: 25px;
+				font-size: 24px;
+				margin-left: 35%;
+			}
+			
+			#total_points, #grade {
+				font-size: 24px;
+			}
+			
+		</style>
+		<script>
+		correct_answers = [ ["barbecue", "documentary", "scream", "hill", "wheel", "vacuum", "blog", "treat", "ride", "board"], ["on", "out", "into", "in", "out"], ["dinner", "mop", "watch", "home", "sitcom"], ["Was Simon eating", "were playing", "wasn't dusting", "was cooking", "was gardening", "Was everyone screaming"], ["was watching", "went", "was watching", "was filming", "was hanging out", "saw", "gave", "took", "were playing", "called", "was building", "was making"], ["through", "along", "off", "into"], ["1a", "2b", "3b", "4a"], ["1c", "2c", "3c", "4a"], ["me", "about", "I", "on", "too", "so", "was", "your"] ];
+			
+		function main(){
+			reset_all();
+		}		
+		
+		function submit(){
+			points = 0;
+			for(i = 1; i <=9; i++) {
+					current_ex_points = document.getElementById("points"+i).value;
+					if(current_ex_points == "") {
+						points+=0
+					} else {
+						points+= parseInt(current_ex_points);
+					}
+			}
+			document.getElementById("total_points").value = points;
+			grade(points);
+		}
+		
+		function grade(points) {
+			final_grade = document.getElementById("grade");
+			if (points >= 24 && points <= 32) {
+				final_grade.value = 'Satisfactory 3';
+			} else if (points >= 33 && points <= 41) {
+				final_grade.value = 'Good 4';
+			} else if (points >= 42 && points <= 50) {
+				final_grade.value = 'Very Good 5';
+			} else if (points >= 51 && points <= 58) {
+				final_grade.value = 'Excellent 6';
+			} else {
+				final_grade.value = 'Poor 2';
+			}
+		}
+		
+		function reset_all() {
+			document.getElementById("total_points").value = "";
+			document.getElementById("total_points").disabled = true;
+			document.getElementById("grade").value = "";
+			document.getElementById("grade").disabled = true;
 			reset_task(1, 10);
 			reset_task(2, 5);
-			
-			//check_task_3(); //????????????????
-			
+			reset_task_3();
 			reset_task(4, 6);
 			reset_task(5, 12);
 			reset_task(6, 4);
 			reset_multiple_choice(7);
 			reset_multiple_choice(8);
-			/*task1();
-			
-			fl_is_shown  = 0;
-			solution1();*/
-			
-			has_been_checked = 0;
-			
-		}		
+			reset_task(9, 8);
+		}
 		
 		function reset_task(task_number, number_of_answers){//изчистване на текстовите полета и връщане на цвета по подразбиране:
 			w = [];
@@ -38,6 +220,15 @@
 			}
 			document.getElementById("points"+task_number).disabled = true;
 			document.getElementById("points"+task_number).value = "";
+		}
+		
+		function reset_task_3() {
+			document.getElementById("points3").disabled = true;
+			document.getElementById("points3").value = "";
+			for( i = 0 ; i<15; i++) {
+				document.getElementById('w3'+(i+1)).style.color = 'black';
+			}
+			check_task_3();
 		}
 		
 		function extract_content(w, task_number, number_of_answers) {
@@ -77,14 +268,22 @@
 		}
 	
 
-		function solve_task_1() {//показване на попълнения текст:
+		function solve_task_1() {
 			reset_task(1,10);
 			solve_task(1, w);
 		}
 		
-		function solve_task_2() {//показване на попълнения текст:
+		function solve_task_2() {
 			reset_task(2,5);
 			solve_task(2, w);
+		}
+		
+		function solve_task_3() {
+			document.getElementById('w33').style.color = 'green';
+			document.getElementById('w36').style.color = 'green';
+			document.getElementById('w39').style.color = 'green';
+			document.getElementById('w311').style.color = 'green';
+			document.getElementById('w315').style.color = 'green';
 		}
 		
 		function solve_task_4(){
@@ -120,6 +319,11 @@
 			}
 		}
 		
+		function solve_task_9(){
+			reset_task(9, 8);
+			solve_task(9, w);
+		}
+		
 		function check_multiple_choice(task_number) {
 			radio_buttons = document.getElementsByName('choice'+task_number);
 			value = [];
@@ -149,6 +353,79 @@
 			set_points(task_number, number_of_correct_answers);
 		}
 		
+		
+		function check_task_3(){
+			points = 0;
+			
+			document.getElementById('w33').onclick = function(){
+				document.getElementById('w33').style.color = 'green';
+				if(!(document.getElementById('w31').style.color == 'red') && !(document.getElementById('w32').style.color == 'red')){
+					points++;
+					set_points(3, points);
+				}
+			};
+			document.getElementById('w36').onclick = function(){
+				document.getElementById('w36').style.color = 'green';
+				if(!(document.getElementById('w34').style.color == 'red') && !(document.getElementById('w35').style.color == 'red')){
+					points++;
+				set_points(3, points);
+				}
+			};
+			document.getElementById('w39').onclick = function(){
+				document.getElementById('w39').style.color = 'green';
+				if(!(document.getElementById('w37').style.color == 'red') && !(document.getElementById('w38').style.color == 'red')){
+					points++;
+					set_points(3, points);
+				}
+			};
+			document.getElementById('w311').onclick = function(){
+				document.getElementById('w311').style.color = 'green';
+				if(!(document.getElementById('w310').style.color == 'red') && !(document.getElementById('w312').style.color == 'red')){
+					points++;
+					set_points(3, points);
+				}
+			};
+			document.getElementById('w315').onclick = function(){
+				document.getElementById('w315').style.color = 'green';
+				if(!(document.getElementById('w313').style.color == 'red') && !(document.getElementById('w314').style.color == 'red')){
+					points++;
+					set_points(3, points);
+				}
+			};
+			document.getElementById('w31').onclick = function(){
+				document.getElementById('w31').style.color = 'red';
+			};
+			document.getElementById('w32').onclick = function(){
+				document.getElementById('w32').style.color = 'red';
+			};
+			document.getElementById('w34').onclick = function(){
+				document.getElementById('w34').style.color = 'red';
+			};
+			document.getElementById('w35').onclick = function(){
+				document.getElementById('w35').style.color = 'red';
+			};
+			document.getElementById('w37').onclick = function(){
+				document.getElementById('w37').style.color = 'red';
+			};
+			document.getElementById('w38').onclick = function(){
+				document.getElementById('w38').style.color = 'red';
+			};
+			document.getElementById('w310').onclick = function(){
+				document.getElementById('w310').style.color = 'red';
+			};
+			document.getElementById('w312').onclick = function(){
+				document.getElementById('w312').style.color = 'red';
+			};
+			document.getElementById('w313').onclick = function(){
+				document.getElementById('w313').style.color = 'red';
+			};
+			document.getElementById('w314').onclick = function(){
+				document.getElementById('w314').style.color = 'red';
+			};
+		}
+		
+		
+		
 		function reset_multiple_choice(task_number){
 			radio_buttons = document.getElementsByName('choice'+task_number);
 			for (i = 0; i < radio_buttons.length; i++) {
@@ -156,28 +433,19 @@
 			}
 			document.getElementById("wrong_answers"+task_number).disabled = true;
 			document.getElementById("wrong_answers"+task_number).value = "";
-			document.getElementById("points"+task_number).disabled = true; ///!!!!!!!!!!!!!!!! da sloja tochkite vdqsno
+			document.getElementById("points"+task_number).disabled = true; 
 			document.getElementById("points"+task_number).value = "";
 		}
-		
-		/*function check_task_3(){
-			is_correct = 1;
-			correct_answers = 0;
-			for(i=0; i<15; i++){
-				answer = document.getElementById('w3'+(i+1));
-			}
-			set_points(3, correct_answers);
-		}*/
 
 		</script>
 	</head>
 	
 	<body onload="main()">
 		<div class="page">			
-		
-			<h1 id="title2">Self-check Unit 5 </h1> 
-			<h3 id="title2"> Fill in the exercises. When you are ready, click the 'Check' button. You will get the total number of corrent answers <i> (points) </i>. At the end of the test, you will get the sum of all your points and the according mark. </h3> 
-			
+			<div class="header">
+			<p id="title2"> <h1>Self-check Unit 5 </h1></p> 
+			<p id="title2"> Fill in the exercises. <br> When you are ready, click the 'Check' button. You will get the total number of corrent answers <b>(points) </b>.  At the end of the test, you will get your <b>total number of points</b> and the according <b>mark</b>. </p> 
+			</div>
 			
 			<div class="task">
 			<div class="task_num">
@@ -185,10 +453,10 @@
 			</div>
 			<div id = "empty_text">
 					<ol>
-						<li> We usually have a <input type="text" id="w11" value="" size="20"> </input>  for my birthday in July.</li> 
+						<li> We usually have a <input type="text" id="w11" value="" size="20"> </input>   for my birthday in July.</li> 
 						<li> The director made a  <input type="text" id="w12" value="" size="20"> </input> about amazing pets.</li> 
 						<li> The horror film made her <input type="text" id="w13" value="" size="20"> </input> .</li> 
-						<li> You can’t rollerblade down that<div id="answer4"> <input type="text" id="w14" value="" size="20"> </input> </div> .</li> 
+						<li> You can’t rollerblade down that<input type="text" id="w14" value="" size="20"> </input>  .</li> 
 						<li> The Ferris  <input type="text" id="w15" value="" size="20"> </input>  made me feel a bit sick.</li> 
 						<li> I must <input type="text" id="w16" value="" size="20"> </input> the carpets because they’re quite dirty.</li> 
 						<li> I’m planning to write my <input type="text" id="w17" value="" size="20"> </input> on the Net tonight.</li> 
@@ -196,12 +464,12 @@
 						<li> The rollercoaster is a  <input type="text" id="w19" value="" size="20"> </input> that I never go on.</li> 
 						<li> It was raining, so we played a  <input type="text" id="w110" value="" size="20"> </input> game indoors.</li> 
 					</ol>
-					<h3> Points: <input type="text" id="points1" value="" size="20"></input></h3>
+					<h3> Points: <input type="text" id="points1" value="" size="4"></input></h3>
 			</div>
-			<div id="buttons_2_task">
+			<div id="task_buttons">
 				<button onclick="check_task(1, 10)"> Check </button>
 				<button onclick="reset_task(1, 10)"> Reset</button>
-				<button onclick="solve_task_1()"> Solution </button>
+				<button onclick="solve_task_1()"> Solve </button>
 			</div>
 			</div>
 			
@@ -218,58 +486,64 @@
 						<li> Judy hangs <input type="text" id="w25" value="" size="20"> </input> at the mall most weekends.
 
 					</ol>
-					<h3> Points: <input type="text" id="points2" value="" size="20"></input></h3>
+					<h3> Points: <input type="text" id="points2" value="" size="4"></input></h3>
 			</div>
-			<div id="buttons_2_task">
+			<div id="task_buttons">
 				<button onclick="check_task(2, 5)"> Check </button>
 				<button onclick="reset_task(2, 5)"> Reset</button>
-				<button onclick="solve_task_2()"> Solution </button>
+				<button onclick="solve_task_2()"> Solve </button>
 			</div>
 			</div>
 			
+
 			<div class="task">
 			<div class="task_num">
-			Task 3: <i> Click the odd one out:</i>
+			<br>Task 3: Click the odd one out:
 			</div>
-			<ol>
+			<div id="empty_text">
+			<ol> <i>
 				<li id = "task1A">
 					<ul> do the 
-							<li id="w31" value="washing-up">washing-up/</li>
-							<li id="w32" value="laundry">laundry/ </li>
-							<li id="w33" value="dinner">dinner; </li>
+							<b><li id="w31" >washing-up</li>/
+							<li id="w32" value="laundry">laundry </li>/ 
+							<li id="w33" value="dinner">dinner</b>; </li>
 					</ul>
 				</li>
 				<li id = "task1A">
 					<ul> 
-							<li id="w34" value="set">set/</li>
-							<li id="w35" value="clear">clear/ </li>
-							<li id="w36" value="mop">mop </li> the table;
+							<b><li id="w34" value="set">set</li>/
+							<li id="w35" value="clear">clear</li>/ 
+							<li id="w36" value="mop">mop </li> </b>the table;
 					</ul>
 				</li>
 				<li id = "task1A">
 					<ul> 
-							<li id="w37" value="surf">surf/</li>
-							<li id="w38" value="blog on">blog on/ </li>
-							<li id="w39" value="watch">watch </li> the Net;
+							<b><li id="w37" value="surf">surf</li>/
+							<li id="w38" value="blog on">blog on</li>/ 
+							<li id="w39" value="watch">watch </b></li> the Net;
 					</ul>
 				</li>
 				<li id = "task1A">
 					<ul> go to
-							<li id="w310" value="karate practice">karate practice/</li>
-							<li id="w311" value="home">home/ </li>
-							<li id="w312" value="bed">bed; </li>
+							<b><li id="w310" value="karate practice">karate practice</li>/
+							<li id="w311" value="home">home</li>/ 
+							<li id="w312" value="bed">bed </b>;</li>
 					</ul>
 				</li>
 				<li id = "task1A">
 					<ul> 
-							<li id="w313" value="talent">talent/</li>
-							<li id="w314" value="reality">reality/ </li>
-							<li id="w315" value="sitcom">sitcom </li> show.
+							<b><li id="w313" value="talent">talent</li>/
+							<li id="w314" value="reality">reality</li>/ 
+							<li id="w315" value="sitcom">sitcom </li> </b>show.
 					</ul>
-				</li>
+				</li> </i>
 			</ol>
-			<h3> Points: <input type="text" id="points3" value="" size="20"></input></h3>
-			<button id="solution_1_button"> Покажи/Скрий решение</button>
+			<h3> Points: <input type="text" id="points3" value="" size="4"></input></h3>
+			</div>
+			<div id="task_buttons">
+				<button onclick="reset_task_3()"> Reset </button>
+				<button onclick="solve_task_3()"> Solve </button>
+			</div>
 			</div>
 			
 			<div class="task">
@@ -278,18 +552,18 @@
 			</div>
 			<div id = "empty_text">
 					<ol>
-						<li> (Simon/eat) <input type="text" id="w41" value="" size="20"> </input>  at 10 pm last night?
-						<li> <input type="text" id="w42" value="" size="20"> </input> video games until midnight yesterday.
-						<li> <input type="text" id="w43" value="" size="20"> </input> the furniture when I called him.
-						<li> My mother  (cook) <input type="text" id="w44" value="" size="20"> </input> dinner while my father (garden)<input type="text" id="w45" value="" size="20"> </input>.
-						<li> (everyone/scream) <input type="text" id="w46" value="" size="20"> </input> when they went into the underwater tunnel?
+						<li> <b>(Simon/eat)</b> <input type="text" id="w41" value="" size="20"> </input>  at 10 pm last night?
+						<li> Ray and Sue <b> (play) </b> <input type="text" id="w42" value="" size="20"> </input> video games until midnight yesterday.
+						<li> Robert  <b>(not/dust) </b><input type="text" id="w43" value="" size="20"> </input> the furniture when I called him.
+						<li> My mother  <b>(cook)</b> <input type="text" id="w44" value="" size="20"> </input> dinner while my father <b>(garden) </b><input type="text" id="w45" value="" size="20"> </input>.
+						<li> <b>(everyone/scream)</b> <input type="text" id="w46" value="" size="22"> </input> when they went into the underwater tunnel?
 					</ol>
-					<h3> Points: <input type="text" id="points4" value="" size="20"></input></h3>
+					<h3> Points: <input type="text" id="points4" value="" size="4"></input></h3>
 			</div>
-			<div id="buttons_2_task">
+			<div id="task_buttons">
 				<button onclick="check_task(4, 6)"> Check </button>
 				<button onclick="reset_task(4, 6)"> Reset</button>
-				<button onclick="solve_task_4()"> Solution </button>
+				<button onclick="solve_task_4()"> Solve </button>
 			</div>
 			</div>
 			
@@ -299,20 +573,20 @@
 			</div>
 			<div id = "empty_text">
 					<ol>
-						<li> I  (watch) <input type="text" id="w51" value="" size="20"> </input> a film when the TV  (go) <input type="text" id="w52" value="" size="20"> </input> off.
-						<li> Everyone  (watch) <input type="text" id="w53" value="" size="20"> </input> the magician while Mark  (film) <input type="text" id="w54" value="" size="20"> </input> them.
-						<li> Lisa  (hang out) <input type="text" id="w55" value="" size="20"> </input> at the mall when she  (see) <input type="text" id="w56" value="" size="20"> </input> a famous singer.
-						<li> I  (give) <input type="text" id="w57" value="" size="20"> </input> the dog a bath after I  (take) <input type="text" id="w58" value="" size="20"> </input> it to the park.
-						<li> John and Luke  (play) <input type="text" id="w59" value="" size="20"> </input> video games when their mother  (call) <input type="text" id="w510" value="" size="20"> </input> them for dinner.
-						<li> My father  (build) <input type="text" id="w511" value="" size="20"> </input> a snowman while I  (make) <input type="text" id="w512" value="" size="20"> </input> snowballs.
+						<li> I  <b>(watch) </b><input type="text" id="w51" value="" size="20"> </input> a film when the TV <b> (go) </b><input type="text" id="w52" value="" size="20"> </input> off.
+						<li> Everyone <b> (watch) </b><input type="text" id="w53" value="" size="20"> </input> the magician while Mark <b> (film) </b><input type="text" id="w54" value="" size="20"> </input> them.
+						<li> Lisa <b> (hang out) </b><input type="text" id="w55" value="" size="20"> </input> at the mall when she <b> (see) </b><input type="text" id="w56" value="" size="20"> </input> a famous singer.
+						<li> I <b> (give) </b> <input type="text" id="w57" value="" size="20"> </input> the dog a bath after I <b> (take) </b> <input type="text" id="w58" value="" size="20"> </input> it to the park.
+						<li> John and Luke <b> (play) </b><input type="text" id="w59" value="" size="20"> </input> video games when their mother <b>  (call) </b><input type="text" id="w510" value="" size="20"> </input> them for dinner.
+						<li> My father <b> (build) </b> <input type="text" id="w511" value="" size="20"> </input> a snowman while I <b> (make) </b><input type="text" id="w512" value="" size="20"> </input> snowballs.
 
 					</ol>
-					<h3> Points: <input type="text" id="points5" value="" size="20"></input></h3>
+					<h3> Points: <input type="text" id="points5" value="" size="4"></input></h3>
 			</div>
-			<div id="buttons_2_task">
+			<div id="task_buttons">
 				<button onclick="check_task(5, 12)"> Check </button>
 				<button onclick="reset_task(5, 12)"> Reset</button>
-				<button onclick="solve_task_5()"> Solution </button>
+				<button onclick="solve_task_5()"> Solve </button>
 			</div>
 			</div>
 			
@@ -327,12 +601,12 @@
 						<li> John was riding his horse when he fell <input type="text" id="w63" value="" size="20"> </input> .
 						<li> The magician put all his cards <input type="text" id="w64" value="" size="20"> </input> the box.
 					</ol>
-					<h3> Points: <input type="text" id="points6" value="" size="20"></input></h3>
+					<h3> Points: <input type="text" id="points6" value="" size="4"></input></h3>
 			</div>
-			<div id="buttons_2_task">
+			<div id="task_buttons">
 				<button onclick="check_task(6, 4)"> Check </button>
 				<button onclick="reset_task(6, 4)"> Reset</button>
-				<button onclick="solve_task_6()"> Solution </button>
+				<button onclick="solve_task_6()"> Solve </button>
 			</div>
 			</div>
 			
@@ -364,12 +638,12 @@
 									</form>
 
 					</ol>
-					<h3> Wrong answers: <input type="text" id="wrong_answers7" value="" size="20"></input> Points: <input type="text" id="points7" value="" size="20"></input></h3>
+					<h3> Wrong answers: <input type="text" id="wrong_answers7" value="" size="8"></input> Points: <input type="text" id="points7" value="" size="4"></input></h3>
 			</div>
-			<div id="buttons_2_task">
+			<div id="task_buttons">
 				<button onclick="check_multiple_choice(7)"> Check </button>
 				<button onclick="reset_multiple_choice(7)"> Reset </button>
-				<button onclick="solve_task_7()"> Solution </button>
+				<button onclick="solve_task_7()"> Solve </button>
 			</div>
 			</div>
 			
@@ -377,17 +651,16 @@
 			<div class="task_num">
 			<br>Task 8: Read Lucia’s email and for questions 1-4, choose the best answer - A, B or C.
 			</div>
-			<div>
-				Hey Bill,
-				<br>How are you? I’m great. I want to tell you about my summer.
+			<div id="reading">
+				<br>Hey Bill,
+				<br><br>How are you? I’m great. I want to tell you about my summer.
 				My family and I went to Lake Garda in northern Italy with
 				my British friend, Angela. It was nice because it was my first holiday with her.
 				Lake Garda is Italy’s largest lake. There’s so much to do there! You can go out on the lake or go hiking and camping in the mountains. We took a boat trip and something very funny happened. Angela was trying to take a picture when she bumped into me and pushed me into the water! I’m a good swimmer, so I wasn’t in danger. I was laughing so much while my brother was pulling me out!
 				Write and tell me about your summer.
  
-				<br>Take care,
+				<br><br>Take care,
 				<br>Lucia
-
 			</div>
 			<div id = "empty_text">
 					<ol>
@@ -417,24 +690,59 @@
 									</form>
 
 					</ol>
-					<h3> Wrong answers: <input type="text" id="wrong_answers8" value="" size="20"></input> Points: <input type="text" id="points8" value="" size="20"></input></h3>
+					<h3> Wrong answers: <input type="text" id="wrong_answers8" value="" size="8"></input> Points: <input type="text" id="points8" value="" size="4"></input></h3>
 			</div>
-			<div id="buttons_2_task">
+			<div id="task_buttons">
 				<button onclick="check_multiple_choice(8)"> Check </button>
 				<button onclick="reset_multiple_choice(8)"> Reset </button>
-				<button onclick="solve_task_8()"> Solution </button>
+				<button onclick="solve_task_8()"> Solve </button>
 			</div>
 			</div>
+			
+			<div class="task">
+			<div class="task_num">
+			<br>Task 9: Write an email to your English friend about your holiday last summer. Write: ■ where you went ■ who with ■ what happened (60 words). Alternatively, complete each gap in the text below with ONE word only.
+			</div>
+			<div id = "empty_text">
+				<br>	Hi John, <br> <br>How are you? Let <input type="text" id="w91" value="" size="20"> </input>  tell you <input type="text" id="w92" value="" size="20"> </input>  my holiday. My family and  
+				<input type="text" id="w93" value="" size="20"> </input> went to Disneyland. We went 
+				<input type="text" id="w94" value="" size="20"> </input> lots of rides. I was <input type="text" id="w95" value="" size="20"> </input> scared to go on a big rollercoaster, 
+			    <input type="text" id="w96" value="" size="20"> </input> my dad came with me. I <input type="text" id="w97" value="" size="20"> </input> laughing all the way round, but my dad felt sick!.
+				<br><br>Write and tell me about <input type="text" id="w98" value="" size="20"> </input> summer. <br> Luca
+				<h3> Points: <input type="text" id="points9" value="" size="4"></input></h3>
+			</div>
+			<div id="task_buttons">
+				<button onclick="check_task(9, 8)"> Check </button>
+				<button onclick="reset_task(9, 8)"> Reset</button>
+				<button onclick="solve_task_9()"> Solve </button>
+			</div>
+			</div>
+			
+			<div class="mark">
+				<div id="task_buttons">
+					<button onclick="submit()"> Submit test </button>
+					<button onclick="reset_all()"> Reset all </button>
+				</div>
+				<table id="total">
+					<tr>
+						<td> Total points: <input type="text" id="total_points" value="" size="20"> </input> </td>
+					</tr>
+					<tr>
+						<td> Grade: <input type="text" id="grade" value="" size="20"> </input> </td>
+					</tr>
+				</table>
+			</div>
+			
 		</div>
 		
-	
+		
 		
 		<div class="footer">
 			<table id="table_footer">
 				<tr>
-					<td> Езици и среди за обучение</td>
-					<td id="year"> 2019</td>
-					<td> Росина Георгиева, 81599 </td>
+					<td> Graphics & Interaction</td>
+					<td id="year"> 2020</td>
+					<td> R.G. </td>
 				</tr>
 			</table>
 		</div>
